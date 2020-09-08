@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
-import { loaderDelay } from '@utils';
+import { theme, media } from '@styles';
+const { colors, loaderDelay } = theme;
 
 const StyledContainer = styled.div`
   width: 40px;
@@ -11,14 +12,9 @@ const StyledContainer = styled.div`
   left: ${props => (props.orientation === 'left' ? '40px' : 'auto')};
   right: ${props => (props.orientation === 'left' ? 'auto' : '40px')};
   z-index: 10;
-  color: ${({ theme }) => theme.colors.lightSlate};
-
-  @media (${({ theme }) => theme.bp.desktopS}) {
-    right: 25px;
-  }
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    display: none;
-  }
+  color: ${colors.lightSlate};
+  ${media.desktop`right: 25px;`};
+  ${media.tablet`display: none;`};
 `;
 
 const Side = ({ children, isHome, orientation }) => {

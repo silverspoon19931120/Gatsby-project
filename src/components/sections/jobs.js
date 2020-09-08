@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import sr from '@utils/sr';
 import { srConfig } from '@config';
 import styled from 'styled-components';
-import { Section, Heading } from '@styles';
+import { theme, mixins, media, Section, Heading } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled(Section)`
   position: relative;
@@ -13,9 +14,9 @@ const StyledTabs = styled.div`
   display: flex;
   align-items: flex-start;
   position: relative;
-  @media (${({ theme }) => theme.bp.tabletS}) {
+  ${media.thone`
     display: block;
-  }
+  `};
 `;
 const StyledTabList = styled.ul`
   display: block;
@@ -26,74 +27,72 @@ const StyledTabList = styled.ul`
   margin: 0;
   list-style: none;
 
-  @media (${({ theme }) => theme.bp.tabletS}) {
+  ${media.thone`
     display: flex;
     overflow-x: scroll;
     margin-bottom: 30px;
     width: calc(100% + 100px);
     margin-left: -50px;
-  }
-  @media (${({ theme }) => theme.bp.mobileL}) {
+  `};
+  ${media.phablet`
     width: calc(100% + 50px);
     margin-left: -25px;
-  }
+  `};
 
   li {
     &:first-of-type {
-      @media (${({ theme }) => theme.bp.tabletS}) {
+      ${media.thone`
         margin-left: 50px;
-      }
-      @media (${({ theme }) => theme.bp.mobileL}) {
+      `};
+      ${media.phablet`
         margin-left: 25px;
-      }
+      `};
     }
     &:last-of-type {
-      @media (${({ theme }) => theme.bp.tabletS}) {
+      ${media.thone`
         padding-right: 50px;
-      }
-      @media (${({ theme }) => theme.bp.mobileL}) {
+      `};
+      ${media.phablet`
         padding-right: 25px;
-      }
+      `};
     }
   }
 `;
 const StyledTabButton = styled.button`
-  ${({ theme }) => theme.mixins.link};
+  ${mixins.link};
   display: flex;
   align-items: center;
   width: 100%;
   background-color: transparent;
-  height: ${({ theme }) => theme.tabHeight}px;
+  height: ${theme.tabHeight}px;
   padding: 0 20px 2px;
-  transition: ${({ theme }) => theme.transition};
-  border-left: 2px solid ${({ theme }) => theme.colors.lightestNavy};
+  transition: ${theme.transition};
+  border-left: 2px solid ${colors.lightestNavy};
   text-align: left;
   white-space: nowrap;
-  font-family: ${({ theme }) => theme.fonts.SFMono};
-  font-size: ${({ theme }) => theme.fontSizes.smish};
-  color: ${({ theme, isActive }) => (isActive ? theme.colors.green : theme.colors.slate)};
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    padding: 0 15px 2px;
-  }
-  @media (${({ theme }) => theme.bp.tabletS}) {
-    ${({ theme }) => theme.mixins.flexCenter};
+  font-family: ${fonts.SFMono};
+  font-size: ${fontSizes.smish};
+  color: ${props => (props.isActive ? colors.green : colors.slate)};
+  ${media.tablet`padding: 0 15px 2px;`};
+  ${media.thone`
+    ${mixins.flexCenter};
     padding: 0 15px;
     text-align: center;
     border-left: 0;
-    border-bottom: 2px solid ${({ theme }) => theme.colors.lightestNavy};
+    border-bottom: 2px solid ${colors.lightestNavy};
     min-width: 120px;
-  }
+  `};
   &:hover,
   &:focus {
-    background-color: ${({ theme }) => theme.colors.lightNavy};
+    background-color: ${colors.lightNavy};
   }
 `;
 const StyledHighlight = styled.span`
   display: block;
-  background: ${({ theme }) => theme.colors.green};
+  background: ${colors.green};
   width: 2px;
-  height: ${({ theme }) => theme.tabHeight}px;
-  border-radius: ${({ theme }) => theme.borderRadius};
+  height: ${theme.tabHeight}px;
+  border-radius: ${theme.borderRadius};
   position: absolute;
   top: 0;
   left: 0;
@@ -101,22 +100,22 @@ const StyledHighlight = styled.span`
   transition-delay: 0.1s;
   z-index: 10;
   transform: translateY(
-    ${({ theme, activeTabId }) => (activeTabId > 0 ? activeTabId * theme.tabHeight : 0)}px
+    ${props => (props.activeTabId > 0 ? props.activeTabId * theme.tabHeight : 0)}px
   );
-  @media (${({ theme }) => theme.bp.tabletS}) {
+  ${media.thone`
     width: 100%;
-    max-width: ${({ theme }) => theme.tabWidth};
+    max-width: ${theme.tabWidth}px;
     height: 2px;
     top: auto;
     bottom: 0;
     transform: translateX(
-      ${({ theme, activeTabId }) => (activeTabId > 0 ? activeTabId * theme.tabWidth : 0)}px
+      ${props => (props.activeTabId > 0 ? props.activeTabId * theme.tabWidth : 0)}px
     );
     margin-left: 50px;
-  }
-  @media (${({ theme }) => theme.bp.mobileL}) {
+  `};
+  ${media.phablet`
     margin-left: 25px;
-  }
+  `};
 `;
 const StyledTabContent = styled.div`
   position: relative;
@@ -124,35 +123,31 @@ const StyledTabContent = styled.div`
   height: auto;
   padding-top: 12px;
   padding-left: 30px;
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    padding-left: 20px;
-  }
-  @media (${({ theme }) => theme.bp.tabletS}) {
-    padding-left: 0;
-  }
+  ${media.tablet`padding-left: 20px;`};
+  ${media.thone`padding-left: 0;`};
 
   ul {
-    ${({ theme }) => theme.mixins.fancyList};
+    ${mixins.fancyList};
   }
   a {
-    ${({ theme }) => theme.mixins.inlineLink};
+    ${mixins.inlineLink};
   }
 `;
 const StyledJobTitle = styled.h4`
-  color: ${({ theme }) => theme.colors.lightestSlate};
-  font-size: ${({ theme }) => theme.fontSizes.xxl};
+  color: ${colors.lightestSlate};
+  font-size: ${fontSizes.xxl};
   font-weight: 500;
   margin-bottom: 5px;
 `;
 const StyledCompany = styled.span`
-  color: ${({ theme }) => theme.colors.green};
+  color: ${colors.green};
 `;
 const StyledJobDetails = styled.h5`
-  font-family: ${({ theme }) => theme.fonts.SFMono};
-  font-size: ${({ theme }) => theme.fontSizes.smish};
-  font-weight: 400;
+  font-family: ${fonts.SFMono};
+  font-size: ${fontSizes.smish};
+  font-weight: normal;
   letter-spacing: 0.05em;
-  color: ${({ theme }) => theme.colors.lightSlate};
+  color: ${colors.lightSlate};
   margin-bottom: 30px;
   svg {
     width: 15px;

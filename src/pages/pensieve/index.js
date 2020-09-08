@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import { Layout } from '@components';
 import { IconZap } from '@components/icons';
 import styled from 'styled-components';
-import { Main } from '@styles';
+import { theme, mixins, media, Main } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
 const StyledMainContainer = styled(Main)`
   & > header {
@@ -24,7 +25,7 @@ const StyledMainContainer = styled(Main)`
   }
 
   footer {
-    ${({ theme }) => theme.mixins.flexBetween};
+    ${mixins.flexBetween};
     margin-top: 20px;
     width: 100%;
   }
@@ -37,29 +38,27 @@ const StyledGrid = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 15px;
     position: relative;
-    @media (${({ theme }) => theme.bp.desktopS}) {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
+    ${media.desktop`grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));`};
   }
 `;
 const StyledPostInner = styled.div`
-  ${({ theme }) => theme.mixins.boxShadow};
-  ${({ theme }) => theme.mixins.flexBetween};
+  ${mixins.boxShadow};
+  ${mixins.flexBetween};
   flex-direction: column;
   align-items: flex-start;
   position: relative;
   padding: 2rem 1.75rem;
   height: 100%;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  transition: ${({ theme }) => theme.transition};
-  background-color: ${({ theme }) => theme.colors.lightNavy};
+  border-radius: ${theme.borderRadius};
+  transition: ${theme.transition};
+  background-color: ${colors.lightNavy};
   header,
   a {
     width: 100%;
   }
 `;
 const StyledPost = styled.div`
-  transition: ${({ theme }) => theme.transition};
+  transition: ${theme.transition};
   cursor: default;
   &:hover,
   &:focus {
@@ -70,11 +69,11 @@ const StyledPost = styled.div`
   }
 `;
 const StyledPostHeader = styled.div`
-  ${({ theme }) => theme.mixins.flexBetween};
+  ${mixins.flexBetween};
   margin-bottom: 30px;
 `;
 const StyledFolder = styled.div`
-  color: ${({ theme }) => theme.colors.green};
+  color: ${colors.green};
   svg {
     width: 40px;
     height: 40px;
@@ -82,18 +81,18 @@ const StyledFolder = styled.div`
 `;
 const StyledPostName = styled.h5`
   margin: 0 0 10px;
-  font-size: ${({ theme }) => theme.fontSizes.xxl};
-  color: ${({ theme }) => theme.colors.lightestSlate};
+  font-size: ${fontSizes.xxl};
+  color: ${colors.lightestSlate};
 `;
 const StyledPostDescription = styled.div`
   font-size: 17px;
-  color: ${({ theme }) => theme.colors.lightSlate};
+  color: ${colors.lightSlate};
 `;
 const StyledDate = styled.span`
   text-transform: uppercase;
-  font-family: ${({ theme }) => theme.fonts.SFMono};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ theme }) => theme.colors.lightSlate};
+  font-family: ${fonts.SFMono};
+  font-size: ${fontSizes.xs};
+  color: ${colors.lightSlate};
 `;
 const StyledTags = styled.ul`
   display: flex;
@@ -104,16 +103,16 @@ const StyledTags = styled.ul`
   list-style: none;
 
   li {
-    font-family: ${({ theme }) => theme.fonts.SFMono};
-    font-size: ${({ theme }) => theme.fontSizes.xs};
-    color: ${({ theme }) => theme.colors.green};
+    font-family: ${fonts.SFMono};
+    font-size: ${fontSizes.xs};
+    color: ${colors.green};
     line-height: 1.75;
     margin-right: 15px;
     &:last-of-type {
       margin-right: 0;
     }
     a {
-      ${({ theme }) => theme.mixins.inlineLink};
+      ${mixins.inlineLink};
     }
   }
 `;

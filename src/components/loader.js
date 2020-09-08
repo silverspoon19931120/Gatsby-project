@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import anime from 'animejs';
 import { IconLoader } from '@components/icons';
 import styled from 'styled-components';
+import { theme, mixins } from '@styles';
+const { colors } = theme;
 
 const StyledContainer = styled.div`
-  ${({ theme }) => theme.mixins.flexCenter};
-  background-color: ${({ theme }) => theme.colors.darkNavy};
+  ${mixins.flexCenter};
+  background-color: ${colors.darkNavy};
   position: fixed;
   width: 100%;
   height: 100%;
@@ -20,7 +22,7 @@ const StyledContainer = styled.div`
 const StyledLogo = styled.div`
   width: max-content;
   max-width: 100px;
-  transition: ${({ theme }) => theme.transition};
+  transition: ${theme.transition};
   opacity: ${props => (props.isMounted ? 1 : 0)};
   svg {
     width: 100%;

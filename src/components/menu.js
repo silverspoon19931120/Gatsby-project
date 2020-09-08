@@ -3,6 +3,8 @@ import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import { navLinks } from '@config';
 import styled from 'styled-components';
+import { theme, mixins, media } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled.div`
   position: fixed;
@@ -13,44 +15,34 @@ const StyledContainer = styled.div`
   height: 100vh;
   z-index: 10;
   outline: 0;
-  transition: ${({ theme }) => theme.transition};
+  transition: ${theme.transition};
   transform: translateX(${props => (props.menuOpen ? 0 : 100)}vw);
   visibility: ${props => (props.menuOpen ? 'visible' : 'hidden')};
   display: none;
-
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    display: block;
-  }
+  ${media.tablet`display: block;`};
 `;
 const Sidebar = styled.aside`
-  ${({ theme }) => theme.mixins.flexCenter};
+  ${mixins.flexCenter};
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.lightNavy};
+  background-color: ${colors.lightNavy};
   padding: 50px;
   width: 50vw;
   height: 100%;
   position: relative;
   right: 0;
   margin-left: auto;
-  font-family: ${({ theme }) => theme.fonts.SFMono};
-  box-shadow: -10px 0px 30px -15px ${({ theme }) => theme.colors.shadowNavy};
-
-  @media (${({ theme }) => theme.bp.tabletS}) {
-    padding: 25px;
-  }
-  @media (${({ theme }) => theme.bp.mobileL}) {
-    width: 75vw;
-  }
-  @media (${({ theme }) => theme.bp.mobileS}) {
-    padding: 10px;
-  }
+  font-family: ${fonts.SFMono};
+  box-shadow: -10px 0px 30px -15px ${colors.shadowNavy};
+  ${media.thone`padding: 25px;`};
+  ${media.phablet`width: 75vw;`};
+  ${media.tiny`padding: 10px;`};
 `;
 const NavLinks = styled.nav`
-  ${({ theme }) => theme.mixins.flexBetween};
+  ${mixins.flexBetween};
   width: 100%;
   flex-direction: column;
   text-align: center;
-  color: ${({ theme }) => theme.colors.lightestSlate};
+  color: ${colors.lightestSlate};
 `;
 const NavList = styled.ol`
   padding: 0;
@@ -61,33 +53,28 @@ const NavList = styled.ol`
 const NavListItem = styled.li`
   margin: 0 auto 20px;
   position: relative;
-  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-size: ${fontSizes.lg};
   counter-increment: item 1;
-
-  @media (${({ theme }) => theme.bp.tabletS}) {
+  ${media.thone`
     margin: 0 auto 10px;
-    font-size: ${({ theme }) => theme.fontSizes.md};
-  }
-
-  @media (${({ theme }) => theme.bp.mobileS}) {
-    font-size: ${({ theme }) => theme.fontSizes.smish};
-  }
-
+    font-size: ${fontSizes.md};
+  `};
+  ${media.tiny`font-size: ${fontSizes.smish};`};
   &:before {
     display: block;
     content: '0' counter(item) '.';
-    color: ${({ theme }) => theme.colors.green};
-    font-size: ${({ theme }) => theme.fontSizes.sm};
+    color: ${colors.green};
+    font-size: ${fontSizes.sm};
     margin-bottom: 5px;
   }
 `;
 const NavLink = styled(Link)`
-  ${({ theme }) => theme.mixins.link};
+  ${mixins.link};
   padding: 3px 20px 20px;
   width: 100%;
 `;
 const ResumeLink = styled.a`
-  ${({ theme }) => theme.mixins.bigButton};
+  ${mixins.bigButton};
   padding: 18px 50px;
   margin: 10% auto 0;
   width: max-content;

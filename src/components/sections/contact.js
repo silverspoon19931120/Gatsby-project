@@ -3,34 +3,30 @@ import PropTypes from 'prop-types';
 import sr from '@utils/sr';
 import { srConfig, email } from '@config';
 import styled from 'styled-components';
-import { Section, Heading } from '@styles';
+import { theme, mixins, media, Section, Heading } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled(Section)`
   text-align: center;
   max-width: 600px;
   margin: 0 auto 100px;
   a {
-    ${({ theme }) => theme.mixins.inlineLink};
+    ${mixins.inlineLink};
   }
 `;
 const StyledHeading = styled(Heading)`
   display: block;
-  color: ${({ theme }) => theme.colors.green};
-  font-size: ${({ theme }) => theme.fontSizes.md};
-  font-family: ${({ theme }) => theme.fonts.SFMono};
-  font-weight: 400;
+  color: ${colors.green};
+  font-size: ${fontSizes.md};
+  font-family: ${fonts.SFMono};
+  font-weight: normal;
   margin-bottom: 20px;
   justify-content: center;
-  @media (${({ theme }) => theme.bp.desktopS}) {
-    font-size: ${({ theme }) => theme.fontSizes.sm};
-  }
-
+  ${media.desktop`font-size: ${fontSizes.sm};`};
   &:before {
     bottom: 0;
-    font-size: ${({ theme }) => theme.fontSizes.sm};
-    @media (${({ theme }) => theme.bp.desktopS}) {
-      font-size: ${({ theme }) => theme.fontSizes.smish};
-    }
+    font-size: ${fontSizes.sm};
+    ${media.desktop`font-size: ${fontSizes.smish};`};
   }
   &:after {
     display: none;
@@ -39,15 +35,11 @@ const StyledHeading = styled(Heading)`
 const StyledTitle = styled.h4`
   margin: 0 0 20px;
   font-size: 60px;
-  @media (${({ theme }) => theme.bp.desktopS}) {
-    font-size: 50px;
-  }
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    font-size: 40px;
-  }
+  ${media.desktop`font-size: 50px;`};
+  ${media.tablet`font-size: 40px;`};
 `;
 const StyledEmailLink = styled.a`
-  ${({ theme }) => theme.mixins.bigButton};
+  ${mixins.bigButton};
   margin-top: 50px;
 `;
 

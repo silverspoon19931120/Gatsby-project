@@ -7,31 +7,32 @@ import { srConfig } from '@config';
 import { Layout } from '@components';
 import { FormattedIcon } from '@components/icons';
 import styled from 'styled-components';
-import { Main } from '@styles';
+import { theme, mixins, media, Main } from '@styles';
+const { colors, fonts, fontSizes } = theme;
 
 const StyledMainContainer = styled(Main)``;
 const StyledTableContainer = styled.div`
   margin: 100px -20px;
-  @media (${({ theme }) => theme.bp.tabletL}) {
+  ${media.tablet`
     margin: 100px -10px;
-  }
+  `};
 `;
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
 
   .hide-on-mobile {
-    @media (${({ theme }) => theme.bp.tabletL}) {
+    ${media.tablet`
       display: none;
-    }
+    `};
   }
 
   tbody tr {
-    transition: ${({ theme }) => theme.transition};
+    transition: ${theme.transition};
 
     &:hover,
     &:focus {
-      background-color: ${({ theme }) => theme.colors.lightNavy};
+      background-color: ${colors.lightNavy};
     }
   }
   th,
@@ -39,9 +40,9 @@ const StyledTable = styled.table`
     cursor: default;
     line-height: 1.5;
     padding: 10px 20px;
-    @media (${({ theme }) => theme.bp.tabletL}) {
+    ${media.tablet`
       padding: 10px;
-    }
+    `};
   }
   th {
     text-align: left;
@@ -49,24 +50,24 @@ const StyledTable = styled.table`
   td {
     &.year {
       width: 10%;
-      @media (${({ theme }) => theme.bp.tabletL}) {
-        font-size: ${({ theme }) => theme.fontSizes.sm};
-      }
+      ${media.tablet`
+        font-size: ${fontSizes.sm};
+      `};
     }
     &.title {
       padding-top: 15px;
-      color: ${({ theme }) => theme.colors.lightestSlate};
-      font-size: ${({ theme }) => theme.fontSizes.xl};
-      font-weight: 600;
+      color: ${colors.lightestSlate};
+      font-size: ${fontSizes.xl};
+      font-weight: 700;
     }
     &.company {
       width: 15%;
       padding-top: 15px;
-      font-size: ${({ theme }) => theme.fontSizes.lg};
+      font-size: ${fontSizes.lg};
     }
     &.tech {
-      font-size: ${({ theme }) => theme.fontSizes.xs};
-      font-family: ${({ theme }) => theme.fonts.SFMono};
+      font-size: ${fontSizes.xs};
+      font-family: ${fonts.SFMono};
       .separator {
         margin: 0 5px;
       }
@@ -79,7 +80,7 @@ const StyledTable = styled.table`
         display: flex;
         align-items: center;
         a {
-          ${({ theme }) => theme.mixins.flexCenter};
+          ${mixins.flexCenter};
         }
         a + a {
           margin-left: 10px;

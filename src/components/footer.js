@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { FormattedIcon } from '@components/icons';
 import { socialMedia } from '@config';
 import styled from 'styled-components';
+import { theme, mixins, media } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled.footer`
-  ${({ theme }) => theme.mixins.flexCenter};
+  ${mixins.flexCenter};
   flex-direction: column;
   padding: 15px;
   text-align: center;
@@ -13,17 +15,15 @@ const StyledContainer = styled.footer`
   min-height: 70px;
 `;
 const StyledSocial = styled.div`
-  color: ${({ theme }) => theme.colors.lightSlate};
+  color: ${colors.lightSlate};
   width: 100%;
   max-width: 270px;
   margin: 0 auto 10px;
   display: none;
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    display: block;
-  }
+  ${media.tablet`display: block;`};
 `;
 const StyledSocialList = styled.ul`
-  ${({ theme }) => theme.mixins.flexBetween};
+  ${mixins.flexBetween};
   padding: 0;
   margin: 0;
   list-style: none;
@@ -36,12 +36,12 @@ const StyledSocialLink = styled.a`
   }
 `;
 const StyledMetadata = styled.div`
-  font-family: ${({ theme }) => theme.fonts.SFMono};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-family: ${fonts.SFMono};
+  font-size: ${fontSizes.xs};
   line-height: 1;
 `;
 const StyledGitHubLink = styled.a`
-  color: ${({ theme }) => theme.colors.lightSlate};
+  color: ${colors.lightSlate};
   padding: 10px;
 `;
 const StyledGitHubInfo = styled.div`

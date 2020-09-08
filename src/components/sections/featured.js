@@ -5,10 +5,11 @@ import sr from '@utils/sr';
 import { srConfig } from '@config';
 import { FormattedIcon } from '@components/icons';
 import styled from 'styled-components';
-import { Section, Heading } from '@styles';
+import { theme, mixins, media, Section, Heading } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled(Section)`
-  ${({ theme }) => theme.mixins.flexCenter};
+  ${mixins.flexCenter};
   flex-direction: column;
   align-items: flex-start;
 `;
@@ -16,61 +17,53 @@ const StyledContent = styled.div`
   position: relative;
   grid-column: 1 / 7;
   grid-row: 1 / -1;
-  @media (${({ theme }) => theme.bp.tabletS}) {
+  ${media.thone`
     grid-column: 1 / -1;
     padding: 40px 40px 30px;
     z-index: 5;
-  }
-  @media (${({ theme }) => theme.bp.mobileL}) {
-    padding: 30px 25px 20px;
-  }
+  `};
+  ${media.phablet`padding: 30px 25px 20px;`};
 `;
 const StyledLabel = styled.h4`
-  font-size: ${({ theme }) => theme.fontSizes.smish};
-  font-weight: 400;
-  color: ${({ theme }) => theme.colors.green};
-  font-family: ${({ theme }) => theme.fonts.SFMono};
+  font-size: ${fontSizes.smish};
+  font-weight: normal;
+  color: ${colors.green};
+  font-family: ${fonts.SFMono};
   margin-top: 10px;
   padding-top: 0;
 `;
 const StyledProjectName = styled.h5`
   font-size: 28px;
   margin: 0 0 20px;
-  color: ${({ theme }) => theme.colors.lightestSlate};
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    font-size: 24px;
-  }
-  @media (${({ theme }) => theme.bp.tabletS}) {
-    color: ${({ theme }) => theme.colors.white};
-  }
+  color: ${colors.lightestSlate};
+  ${media.tablet`font-size: 24px;`};
+  ${media.thone`color: ${colors.white};`};
   a {
-    @media (${({ theme }) => theme.bp.tabletL}) {
-      display: block;
-    }
+    ${media.tablet`display: block;`};
   }
 `;
 const StyledDescription = styled.div`
-  ${({ theme }) => theme.mixins.boxShadow};
+  ${mixins.boxShadow};
   position: relative;
   z-index: 2;
   padding: 25px;
-  background-color: ${({ theme }) => theme.colors.lightNavy};
-  color: ${({ theme }) => theme.colors.lightSlate};
-  font-size: ${({ theme }) => theme.fontSizes.lg};
-  border-radius: ${({ theme }) => theme.borderRadius};
-  @media (${({ theme }) => theme.bp.tabletS}) {
+  background-color: ${colors.lightNavy};
+  color: ${colors.lightSlate};
+  font-size: ${fontSizes.lg};
+  border-radius: ${theme.borderRadius};
+  ${media.thone`
     background-color: transparent;
     padding: 20px 0;
     box-shadow: none;
     &:hover {
       box-shadow: none;
     }
-  }
+  `};
   p {
     margin: 0;
   }
   a {
-    ${({ theme }) => theme.mixins.inlineLink};
+    ${mixins.inlineLink};
   }
 `;
 const StyledTechList = styled.ul`
@@ -83,19 +76,19 @@ const StyledTechList = styled.ul`
   list-style: none;
 
   li {
-    font-family: ${({ theme }) => theme.fonts.SFMono};
-    font-size: ${({ theme }) => theme.fontSizes.smish};
-    color: ${({ theme }) => theme.colors.slate};
-    margin-right: ${({ theme }) => theme.margin};
+    font-family: ${fonts.SFMono};
+    font-size: ${fontSizes.smish};
+    color: ${colors.slate};
+    margin-right: ${theme.margin};
     margin-bottom: 7px;
     white-space: nowrap;
     &:last-of-type {
       margin-right: 0;
     }
-    @media (${({ theme }) => theme.bp.tabletS}) {
-      color: ${({ theme }) => theme.colors.lightestSlate};
+    ${media.thone`
+      color: ${colors.lightestSlate};
       margin-right: 10px;
-    }
+    `};
   }
 `;
 const StyledLinkWrapper = styled.div`
@@ -104,7 +97,7 @@ const StyledLinkWrapper = styled.div`
   position: relative;
   margin-top: 10px;
   margin-left: -10px;
-  color: ${({ theme }) => theme.colors.lightestSlate};
+  color: ${colors.lightestSlate};
   a {
     padding: 10px;
     svg {
@@ -117,33 +110,31 @@ const StyledFeaturedImg = styled(Img)`
   width: 100%;
   max-width: 100%;
   vertical-align: middle;
-  border-radius: ${({ theme }) => theme.borderRadius};
+  border-radius: ${theme.borderRadius};
   position: relative;
   mix-blend-mode: multiply;
   filter: grayscale(100%) contrast(1) brightness(90%);
-  @media (${({ theme }) => theme.bp.tabletL}) {
+  ${media.tablet`
     object-fit: cover;
     width: auto;
     height: 100%;
     filter: grayscale(100%) contrast(1) brightness(80%);
-  }
+  `};
 `;
 const StyledImgContainer = styled.a`
-  ${({ theme }) => theme.mixins.boxShadow};
+  ${mixins.boxShadow};
   grid-column: 6 / -1;
   grid-row: 1 / -1;
   position: relative;
   z-index: 1;
-  background-color: ${({ theme }) => theme.colors.green};
-  border-radius: ${({ theme }) => theme.radius + 1}px;
-  transition: ${({ theme }) => theme.transition};
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    height: 100%;
-  }
-  @media (${({ theme }) => theme.bp.tabletS}) {
+  background-color: ${colors.green};
+  border-radius: ${theme.radius + 1}px;
+  transition: ${theme.transition};
+  ${media.tablet`height: 100%;`};
+  ${media.thone`
     grid-column: 1 / -1;
     opacity: 0.25;
-  }
+  `};
   &:hover,
   &:focus {
     background: transparent;
@@ -163,8 +154,8 @@ const StyledImgContainer = styled.a`
     right: 0;
     bottom: 0;
     z-index: 3;
-    transition: ${({ theme }) => theme.transition};
-    background-color: ${({ theme }) => theme.colors.navy};
+    transition: ${theme.transition};
+    background-color: ${colors.navy};
     mix-blend-mode: screen;
   }
 `;
@@ -174,9 +165,9 @@ const StyledProject = styled.div`
   grid-template-columns: repeat(12, 1fr);
   align-items: center;
   margin-bottom: 100px;
-  @media (${({ theme }) => theme.bp.tabletS}) {
+  ${media.thone`
     margin-bottom: 70px;
-  }
+  `};
   &:last-of-type {
     margin-bottom: 0;
   }
@@ -184,18 +175,16 @@ const StyledProject = styled.div`
     ${StyledContent} {
       grid-column: 7 / -1;
       text-align: right;
-      @media (${({ theme }) => theme.bp.tabletS}) {
+      ${media.thone`
         grid-column: 1 / -1;
         padding: 40px 40px 30px;
-      }
-      @media (${({ theme }) => theme.bp.mobileL}) {
-        padding: 30px 25px 20px;
-      }
+      `};
+      ${media.phablet`padding: 30px 25px 20px;`};
     }
     ${StyledTechList} {
       justify-content: flex-end;
       li {
-        margin-left: ${({ theme }) => theme.margin};
+        margin-left: ${theme.margin};
         margin-right: 0;
       }
     }
@@ -206,13 +195,11 @@ const StyledProject = styled.div`
     }
     ${StyledImgContainer} {
       grid-column: 1 / 8;
-      @media (${({ theme }) => theme.bp.tabletL}) {
-        height: 100%;
-      }
-      @media (${({ theme }) => theme.bp.tabletS}) {
+      ${media.tablet`height: 100%;`};
+      ${media.thone`
         grid-column: 1 / -1;
         opacity: 0.25;
-      }
+      `};
     }
   }
 `;

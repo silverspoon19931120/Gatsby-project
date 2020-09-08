@@ -6,31 +6,28 @@ import sr from '@utils/sr';
 import { srConfig } from '@config';
 import { FormattedIcon } from '@components/icons';
 import styled from 'styled-components';
-import { Section, Button } from '@styles';
+import { theme, mixins, media, Section, Button } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
 const StyledContainer = styled(Section)`
-  ${({ theme }) => theme.mixins.flexCenter};
+  ${mixins.flexCenter};
   flex-direction: column;
   align-items: flex-start;
 `;
 const StyledTitle = styled.h4`
   margin: 0 auto;
-  font-size: ${({ theme }) => theme.fontSizes.h3};
-
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    font-size: 24px;
-  }
-
+  font-size: ${fontSizes.h3};
+  ${media.tablet`font-size: 24px;`};
   a {
     display: block;
   }
 `;
 const StyledArchiveLink = styled(Link)`
-  ${({ theme }) => theme.mixins.inlineLink};
+  ${mixins.inlineLink};
   text-align: center;
   margin: 0 auto;
-  font-family: ${({ theme }) => theme.fonts.SFMono};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-family: ${fonts.SFMono};
+  font-size: ${fontSizes.sm};
   &:after {
     bottom: 0.1em;
   }
@@ -43,26 +40,23 @@ const StyledGrid = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 15px;
     position: relative;
-
-    @media (${({ theme }) => theme.bp.desktopS}) {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
+    ${media.desktop`grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));`};
   }
 `;
 const StyledProjectInner = styled.div`
-  ${({ theme }) => theme.mixins.boxShadow};
-  ${({ theme }) => theme.mixins.flexBetween};
+  ${mixins.boxShadow};
+  ${mixins.flexBetween};
   flex-direction: column;
   align-items: flex-start;
   position: relative;
   padding: 2rem 1.75rem;
   height: 100%;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  transition: ${({ theme }) => theme.transition};
-  background-color: ${({ theme }) => theme.colors.lightNavy};
+  border-radius: ${theme.borderRadius};
+  transition: ${theme.transition};
+  background-color: ${colors.lightNavy};
 `;
 const StyledProject = styled.div`
-  transition: ${({ theme }) => theme.transition};
+  transition: ${theme.transition};
   cursor: default;
   &:hover,
   &:focus {
@@ -73,11 +67,11 @@ const StyledProject = styled.div`
   }
 `;
 const StyledProjectHeader = styled.div`
-  ${({ theme }) => theme.mixins.flexBetween};
+  ${mixins.flexBetween};
   margin-bottom: 30px;
 `;
 const StyledFolder = styled.div`
-  color: ${({ theme }) => theme.colors.green};
+  color: ${colors.green};
   svg {
     width: 40px;
     height: 40px;
@@ -85,7 +79,7 @@ const StyledFolder = styled.div`
 `;
 const StyledProjectLinks = styled.div`
   margin-right: -10px;
-  color: ${({ theme }) => theme.colors.lightSlate};
+  color: ${colors.lightSlate};
 `;
 const StyledIconLink = styled.a`
   position: relative;
@@ -98,14 +92,14 @@ const StyledIconLink = styled.a`
 `;
 const StyledProjectName = styled.h5`
   margin: 0 0 10px;
-  font-size: ${({ theme }) => theme.fontSizes.xxl};
-  color: ${({ theme }) => theme.colors.lightestSlate};
+  font-size: ${fontSizes.xxl};
+  color: ${colors.lightestSlate};
 `;
 const StyledProjectDescription = styled.div`
   font-size: 17px;
-  color: ${({ theme }) => theme.colors.lightSlate};
+  color: ${colors.lightSlate};
   a {
-    ${({ theme }) => theme.mixins.inlineLink};
+    ${mixins.inlineLink};
   }
 `;
 const StyledTechList = styled.ul`
@@ -118,9 +112,9 @@ const StyledTechList = styled.ul`
   list-style: none;
 
   li {
-    font-family: ${({ theme }) => theme.fonts.SFMono};
-    font-size: ${({ theme }) => theme.fontSizes.xs};
-    color: ${({ theme }) => theme.colors.slate};
+    font-family: ${fonts.SFMono};
+    font-size: ${fontSizes.xs};
+    color: ${colors.slate};
     line-height: 1.75;
     margin-right: 15px;
     &:last-of-type {
