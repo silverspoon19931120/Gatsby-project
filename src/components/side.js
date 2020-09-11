@@ -2,25 +2,19 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
-import { loaderDelay } from '@utils';
+import { theme, media } from '@styles';
+const { colors, loaderDelay } = theme;
 
-const StyledSideElement = styled.div`
+const StyledContainer = styled.div`
   width: 40px;
   position: fixed;
   bottom: 0;
   left: ${props => (props.orientation === 'left' ? '40px' : 'auto')};
   right: ${props => (props.orientation === 'left' ? 'auto' : '40px')};
   z-index: 10;
-  color: ${({ theme }) => theme.colors.lightSlate};
-
-  @media (${({ theme }) => theme.bp.desktopS}) {
-    left: ${props => (props.orientation === 'left' ? '20px' : 'auto')};
-    right: ${props => (props.orientation === 'left' ? 'auto' : '20px')};
-  }
-
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    display: none;
-  }
+  color: ${colors.lightSlate};
+  ${media.desktop`right: 25px;`};
+  ${media.tablet`display: none;`};
 `;
 
 const Side = ({ children, isHome, orientation }) => {
@@ -35,7 +29,7 @@ const Side = ({ children, isHome, orientation }) => {
   }, []);
 
   return (
-    <StyledSideElement orientation={orientation}>
+    <StyledContainer orientation={orientation}>
       <TransitionGroup component={null}>
         {isMounted && (
           <CSSTransition classNames={isHome ? 'fade' : ''} timeout={isHome ? loaderDelay : 0}>
@@ -43,7 +37,7 @@ const Side = ({ children, isHome, orientation }) => {
           </CSSTransition>
         )}
       </TransitionGroup>
-    </StyledSideElement>
+    </StyledContainer>
   );
 };
 

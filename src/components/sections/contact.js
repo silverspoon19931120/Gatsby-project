@@ -1,78 +1,71 @@
 import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import { srConfig, email } from '@config';
+import PropTypes from 'prop-types';
 import sr from '@utils/sr';
+import { srConfig, email } from '@config';
+import styled from 'styled-components';
+import { theme, mixins, media, Section, Heading } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
-const StyledContactSection = styled.section`
+const StyledContainer = styled(Section)`
   text-align: center;
   max-width: 600px;
   margin: 0 auto 100px;
-
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    margin: 0 auto 50px;
-  }
-
-  .overline {
-    display: block;
-    color: ${({ theme }) => theme.colors.green};
-    font-size: ${({ theme }) => theme.fontSizes.md};
-    font-family: ${({ theme }) => theme.fonts.SFMono};
-    font-weight: 400;
-    margin-bottom: 20px;
-    justify-content: center;
-    @media (${({ theme }) => theme.bp.desktopS}) {
-      font-size: ${({ theme }) => theme.fontSizes.sm};
-    }
-
-    &:before {
-      bottom: 0;
-      font-size: ${({ theme }) => theme.fontSizes.sm};
-      @media (${({ theme }) => theme.bp.desktopS}) {
-        font-size: ${({ theme }) => theme.fontSizes.xs};
-      }
-    }
-    &:after {
-      display: none;
-    }
-  }
-
-  .title {
-    font-size: 60px;
-
-    @media (${({ theme }) => theme.bp.desktopS}) {
-      font-size: 50px;
-    }
-    @media (${({ theme }) => theme.bp.tabletL}) {
-      font-size: 40px;
-    }
-  }
-
-  .email-link {
-    ${({ theme }) => theme.mixins.bigButton};
-    margin-top: 50px;
+  a {
+    ${mixins.inlineLink};
   }
 `;
+const StyledHeading = styled(Heading)`
+  display: block;
+  color: ${colors.green};
+  font-size: ${fontSizes.md};
+  font-family: ${fonts.SFMono};
+  font-weight: normal;
+  margin-bottom: 20px;
+  justify-content: center;
+  ${media.desktop`font-size: ${fontSizes.sm};`};
+  &:before {
+    bottom: 0;
+    font-size: ${fontSizes.sm};
+    ${media.desktop`font-size: ${fontSizes.smish};`};
+  }
+  &:after {
+    display: none;
+  }
+`;
+const StyledTitle = styled.h4`
+  margin: 0 0 20px;
+  font-size: 60px;
+  ${media.desktop`font-size: 50px;`};
+  ${media.tablet`font-size: 40px;`};
+`;
+const StyledEmailLink = styled.a`
+  ${mixins.bigButton};
+  margin-top: 50px;
+`;
 
-const Contact = () => {
+const Contact = ({ data }) => {
+  const { frontmatter, html } = data[0].node;
+  const { title, buttonText } = frontmatter;
   const revealContainer = useRef(null);
   useEffect(() => sr.reveal(revealContainer.current, srConfig()), []);
 
   return (
-    <StyledContactSection id="contact" ref={revealContainer}>
-      <h2 className="numbered-heading overline">What’s Next?</h2>
+    <StyledContainer id="contact" ref={revealContainer}>
+      <StyledHeading>What&apos;s Next?</StyledHeading>
 
-      <h2 className="title">Get In Touch</h2>
+      <StyledTitle>{title}</StyledTitle>
 
-      <p>
-        Although I'm not currently looking for any new opportunities, my inbox is always open.
-        Whether you have a question or just want to say hi, I'll try my best to get back to you!
-      </p>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
 
-      <a className="email-link" href={`mailto:${email}`}>
-        Say Hello
-      </a>
-    </StyledContactSection>
+      <StyledEmailLink href={`mailto:${email}`} target="_blank" rel="nofollow noopener noreferrer">
+        {buttonText}
+      </StyledEmailLink>
+    </StyledContainer>
   );
+};
+
+Contact.propTypes = {
+  data: PropTypes.array.isRequired,
 };
 
 export default Contact;

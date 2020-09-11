@@ -18,7 +18,7 @@ import {
   IconZap,
 } from '@components/icons';
 
-const Icon = ({ name }) => {
+const FormattedIcon = ({ name }) => {
   switch (name) {
     case 'AppStore':
       return <IconAppStore />;
@@ -55,8 +55,8 @@ const Icon = ({ name }) => {
   }
 };
 
-Icon.propTypes = {
+FormattedIcon.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default Icon;
+export default FormattedIcon;

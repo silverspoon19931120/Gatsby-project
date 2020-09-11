@@ -1,68 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Icon } from '@components/icons';
+import { FormattedIcon } from '@components/icons';
 import { socialMedia } from '@config';
+import styled from 'styled-components';
+import { theme, mixins, media } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
-const StyledFooter = styled.footer`
-  ${({ theme }) => theme.mixins.flexCenter};
+const StyledContainer = styled.footer`
+  ${mixins.flexCenter};
   flex-direction: column;
   padding: 15px;
   text-align: center;
   height: auto;
   min-height: 70px;
 `;
-const StyledSocialLinks = styled.div`
-  color: ${({ theme }) => theme.colors.lightSlate};
+const StyledSocial = styled.div`
+  color: ${colors.lightSlate};
   width: 100%;
   max-width: 270px;
   margin: 0 auto 10px;
   display: none;
-
-  @media (${({ theme }) => theme.bp.tabletL}) {
-    display: block;
-  }
-
-  ul {
-    ${({ theme }) => theme.mixins.flexBetween};
-    padding: 0;
-    margin: 0;
-    list-style: none;
-
-    a {
-      padding: 10px;
-      svg {
-        width: 20px;
-        height: 20px;
-      }
-    }
+  ${media.tablet`display: block;`};
+`;
+const StyledSocialList = styled.ul`
+  ${mixins.flexBetween};
+  padding: 0;
+  margin: 0;
+  list-style: none;
+`;
+const StyledSocialLink = styled.a`
+  padding: 10px;
+  svg {
+    width: 20px;
+    height: 20px;
   }
 `;
-
-const StyledCredit = styled.div`
-  font-family: ${({ theme }) => theme.fonts.SFMono};
-  font-size: ${({ theme }) => theme.fontSizes.xxs};
+const StyledMetadata = styled.div`
+  font-family: ${fonts.SFMono};
+  font-size: ${fontSizes.xs};
   line-height: 1;
-  color: ${({ theme }) => theme.colors.lightSlate};
+`;
+const StyledGitHubLink = styled.a`
+  color: ${colors.lightSlate};
+  padding: 10px;
+`;
+const StyledGitHubInfo = styled.div`
+  margin-top: 10px;
 
-  a {
-    padding: 10px;
+  & > span {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 7px;
   }
-
-  .github-stats {
-    margin-top: 10px;
-
-    & > span {
-      display: inline-flex;
-      align-items: center;
-      margin: 0 7px;
-    }
-    svg {
-      display: inline-block;
-      width: auto;
-      height: 15px;
-      margin-right: 5px;
-    }
+  svg {
+    display: inline-block;
+    height: 15px;
+    width: auto;
+    margin-right: 5px;
   }
 `;
 
@@ -89,39 +83,45 @@ const Footer = () => {
   }, []);
 
   return (
-    <StyledFooter>
-      <StyledSocialLinks>
-        <ul>
+    <StyledContainer>
+      <StyledSocial>
+        <StyledSocialList>
           {socialMedia &&
             socialMedia.map(({ name, url }, i) => (
               <li key={i}>
-                <a href={url} aria-label={name}>
-                  <Icon name={name} />
-                </a>
+                <StyledSocialLink
+                  href={url}
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  aria-label={name}>
+                  <FormattedIcon name={name} />
+                </StyledSocialLink>
               </li>
             ))}
-        </ul>
-      </StyledSocialLinks>
-
-      <StyledCredit tabindex="-1">
-        <a href="https://github.com/bchiang7/v4">
+        </StyledSocialList>
+      </StyledSocial>
+      <StyledMetadata tabindex="-1">
+        <StyledGitHubLink
+          href="https://github.com/bchiang7/v4"
+          target="_blank"
+          rel="nofollow noopener noreferrer">
           <div>Designed &amp; Built by Brittany Chiang</div>
 
           {githubInfo.stars && githubInfo.forks && (
-            <div className="github-stats">
+            <StyledGitHubInfo>
               <span>
-                <Icon name="Star" />
+                <FormattedIcon name="Star" />
                 <span>{githubInfo.stars.toLocaleString()}</span>
               </span>
               <span>
-                <Icon name="Fork" />
+                <FormattedIcon name="Fork" />
                 <span>{githubInfo.forks.toLocaleString()}</span>
               </span>
-            </div>
+            </StyledGitHubInfo>
           )}
-        </a>
-      </StyledCredit>
-    </StyledFooter>
+        </StyledGitHubLink>
+      </StyledMetadata>
+    </StyledContainer>
   );
 };
 

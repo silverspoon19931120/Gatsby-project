@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { StaticQuery, graphql } from 'gatsby';
 import PropTypes from 'prop-types';
-import styled, { ThemeProvider } from 'styled-components';
 import { Head, Loader, Nav, Social, Email, Footer } from '@components';
+import styled from 'styled-components';
 import { GlobalStyle, theme } from '@styles';
+const { colors, fontSizes, fonts } = theme;
 
 // https://medium.com/@chrisfitkin/how-to-smooth-scroll-links-in-gatsby-3dc445299558
 if (typeof window !== 'undefined') {
@@ -10,7 +12,7 @@ if (typeof window !== 'undefined') {
   require('smooth-scroll')('a[href*="#"]');
 }
 
-const SkipToContentLink = styled.a`
+const SkipToContent = styled.a`
   position: absolute;
   top: auto;
   left: -999px;
@@ -21,16 +23,16 @@ const SkipToContentLink = styled.a`
   &:focus,
   &:active {
     outline: 0;
-    color: ${({ theme }) => theme.colors.green};
-    background-color: ${({ theme }) => theme.colors.lightNavy};
-    border-radius: ${({ theme }) => theme.borderRadius};
+    color: ${colors.green};
+    background-color: ${colors.lightNavy};
+    border-radius: ${theme.borderRadius};
     padding: 18px 23px;
-    font-size: ${({ theme }) => theme.fontSizes.sm};
-    font-family: ${({ theme }) => theme.fonts.SFMono};
+    font-size: ${fontSizes.sm};
+    font-family: ${fonts.SFMono};
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
-    transition: ${({ theme }) => theme.transition};
+    transition: ${theme.transition};
     top: 0;
     left: 0;
     width: auto;
@@ -65,32 +67,26 @@ const Layout = ({ children, location }) => {
     }
   }, [isLoading]);
 
-  // Sets target="_blank" rel="noopener noreferrer" on external links
-  const handleExternalLinks = () => {
-    const allLinks = Array.from(document.querySelectorAll('a'));
-    if (allLinks.length > 0) {
-      allLinks.forEach(link => {
-        if (link.host !== window.location.host) {
-          link.setAttribute('rel', 'noopener noreferrer');
-          link.setAttribute('target', '_blank');
-        }
-      });
-    }
-  };
-
-  useEffect(() => {
-    handleExternalLinks();
-  }, []);
-
   return (
-    <>
-      <Head />
+    <StaticQuery
+      query={graphql`
+        query LayoutQuery {
+          site {
+            siteMetadata {
+              title
+              siteUrl
+              description
+            }
+          }
+        }
+      `}
+      render={({ site }) => (
+        <div id="root">
+          <Head metadata={site.siteMetadata} />
 
-      <div id="root">
-        <ThemeProvider theme={theme}>
           <GlobalStyle />
 
-          <SkipToContentLink href="#content">Skip to Content</SkipToContentLink>
+          <SkipToContent href="#content">Skip to Content</SkipToContent>
 
           {isLoading && isHome ? (
             <Loader finishLoading={() => setIsLoading(false)} />
@@ -106,9 +102,9 @@ const Layout = ({ children, location }) => {
               </div>
             </StyledContent>
           )}
-        </ThemeProvider>
-      </div>
-    </>
+        </div>
+      )}
+    />
   );
 };
 

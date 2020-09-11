@@ -1,11 +1,14 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
+import Helmet from 'react-helmet';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
+import { Layout } from '@components';
 import styled from 'styled-components';
-import { Layout, Head } from '@components';
+import { Main, theme } from '@styles';
+const { colors } = theme;
 
-const StyledPostContainer = styled.main`
+const StyledPostContainer = styled(Main)`
   max-width: 1000px;
 `;
 const StyledPostHeader = styled.header`
@@ -28,7 +31,7 @@ const StyledPostContent = styled.div`
   p {
     margin: 1em 0;
     line-height: 1.5;
-    color: ${({ theme }) => theme.colors.lightSlate};
+    color: ${colors.lightSlate};
   }
 `;
 
@@ -38,7 +41,10 @@ const PostTemplate = ({ data, location }) => {
 
   return (
     <Layout location={location}>
-      {/* <Head title={title} /> */}
+      <Helmet>
+        <title>{title} | Brittany Chiang</title>
+        <link rel="canonical" href="https://brittanychiang.com/pensieve" />
+      </Helmet>
 
       <StyledPostContainer>
         <span className="breadcrumb">
@@ -47,7 +53,7 @@ const PostTemplate = ({ data, location }) => {
         </span>
 
         <StyledPostHeader>
-          <h1 className="medium-heading">{title}</h1>
+          <h1 className="medium-title">{title}</h1>
           <p className="subtitle">
             <time>
               {new Date(date).toLocaleDateString('en-US', {
