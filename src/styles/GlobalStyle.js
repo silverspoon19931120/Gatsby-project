@@ -55,13 +55,13 @@ const GlobalStyle = createGlobalStyle`
     scrollbar-width: thin;
     scrollbar-color: var(--dark-slate) var(--navy);
   }
-  ::-webkit-scrollbar {
+  body::-webkit-scrollbar {
     width: 12px;
   }
-  ::-webkit-scrollbar-track {
+  body::-webkit-scrollbar-track {
     background: var(--navy);
   }
-  ::-webkit-scrollbar-thumb {
+  body::-webkit-scrollbar-thumb {
     background-color: var(--dark-slate);
     border: 3px solid var(--navy);
     border-radius: 10px;
